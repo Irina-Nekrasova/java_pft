@@ -9,8 +9,9 @@ public class Point {
     this.y=y;
   }
   public double dist (Point b) {
-    return Math.sqrt(Math.pow(b.x-this.x,2)+Math.pow(b.y-this.y,2));
-
+    double d=0;
+    d=Math.round(Math.sqrt(Math.pow(b.x-this.x,2)+Math.pow(b.y-this.y,2))*100);
+    return d/100;
   }
 
 }
