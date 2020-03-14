@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="ru.stqa.pft.sandbox.SquareTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-14T11:58:03" hostname="DESKTOP-VBO2KCE" time="0.0">
+<testsuite name="ru.stqa.pft.sandbox.SquareTests" tests="1" skipped="0" failures="0" errors="0" timestamp="2020-03-14T12:09:14" hostname="DESKTOP-VBO2KCE" time="0.016">
   <properties/>
-  <testcase name="testArea" classname="ru.stqa.pft.sandbox.SquareTests" time="0.0"/>
+  <testcase name="testArea" classname="ru.stqa.pft.sandbox.SquareTests" time="0.016"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
