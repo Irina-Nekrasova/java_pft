@@ -19,11 +19,18 @@ public class ContactHelper extends HelperBase {
     type(By.name("lastname"), contactData.getLastname());
     type(By.name("address"), contactData.getAddress());
     type(By.name("mobile"), contactData.getMobile());
-    click(By.name("theform"));
     type(By.name("email"), contactData.getEmail());
   }
 
   public void gotoNewContactPage() {
     click(By.linkText("add new"));
+  }
+
+  public void initContactModification() {
+    click(By.xpath("//img[@alt='Edit']"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
   }
 }
