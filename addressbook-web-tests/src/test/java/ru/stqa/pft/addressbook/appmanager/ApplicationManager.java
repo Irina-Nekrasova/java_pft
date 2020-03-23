@@ -29,11 +29,6 @@ public class ApplicationManager {
   }
 
 
-
-  public void returnToHomePage() {
-    wd.findElement(By.linkText("home page")).click();
-  }
-
   public void submitContactCreation() {
     wd.findElement(By.name("submit")).click();
   }
