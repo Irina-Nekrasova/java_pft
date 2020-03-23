@@ -24,13 +24,11 @@ public class ApplicationManager {
   }
 
     public void stop() {
-    logout();
+    sessionHelper.logout();
     wd.quit();
   }
 
-  private void logout() {
-    wd.findElement(By.linkText("Logout")).click();
-  }
+
 
   public void returnToHomePage() {
     wd.findElement(By.linkText("home page")).click();
