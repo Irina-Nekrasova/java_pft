@@ -25,7 +25,7 @@ public class ApplicationManager {
 
     public void stop() {
     sessionHelper.logout();
-    contactHelper.wd.quit();
+    wd.quit();
   }
 
 
