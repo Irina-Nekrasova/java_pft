@@ -5,7 +5,6 @@ import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 public class ContactDeletionTests extends TestBase {
 
@@ -13,7 +12,7 @@ public class ContactDeletionTests extends TestBase {
     public void testContactDeletion () {
       if (! app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Irina", "Nekras", "Sankt-Peter", "89213336677", "true@mail.ru", "test1"), true);
-      app.getNavigationHelper().returnToHomePage();
+      app.goTo().returnToHomePage();
     }
     List<ContactData> before = app.getContactHelper().getContactList();
     app.getContactHelper().selectContact(before.size()-1);
