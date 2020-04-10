@@ -9,7 +9,9 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ContactHelper extends HelperBase {
 
@@ -91,6 +93,19 @@ public class ContactHelper extends HelperBase {
      String name = cells.get(2).getText();
      String lastname = cells.get(1).getText();
      contacts.add(new ContactData().withId(id).withFirstname(name).withLastname(lastname));
+    }
+    return contacts;
+  }
+
+  public Set<ContactData> all() {
+    Set<ContactData> contacts = new HashSet<ContactData>();
+    List<WebElement> elements = wd.findElements(By.name("entry"));
+    for (WebElement element : elements) {
+      List<WebElement> cells = element.findElements(By.tagName("td"));
+      int id = Integer.parseInt(element.findElement(By.tagName("input")).getAttribute("value"));
+      String name = cells.get(2).getText();
+      String lastname = cells.get(1).getText();
+      contacts.add(new ContactData().withId(id).withFirstname(name).withLastname(lastname));
     }
     return contacts;
   }
