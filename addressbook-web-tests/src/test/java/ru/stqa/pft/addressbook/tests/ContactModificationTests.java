@@ -1,6 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.testng.Assert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.ContactData;
 
@@ -9,22 +10,25 @@ import java.util.List;
 
 public class ContactModificationTests extends TestBase {
 
-  @Test (enabled = false)
-  public void testContactModification() {
-    if (!app.getContactHelper().isThereAContact()) {
-      app.getContactHelper().createContact(new ContactData("Irina", "Nekras", "Sankt-Peter", "89213336677", "true@mail.ru", "test1"), true);
-      app.goTo().returnToHomePage();
+  @BeforeMethod
+  public void insurePreCondition () {
+    if (app.contact().list().size() == 0) {
+      app.contact().create(new ContactData("Irina", "Nekras", "Sankt-Peter", "89213336677", "true@mail.ru", "test1"), true);
+      app.goTo().homePage();
     }
-    List<ContactData> before = app.getContactHelper().getContactList();
-    app.getContactHelper().initContactModification(before.size()-1);
-    ContactData contact = new ContactData(before.get(before.size()-1).getId() , "Arina", "Nekrasova", "Sankt-Peter", "89213336677", "true@mail.ru", null);
-    app.getContactHelper().fillNewContactForm(contact, false);
-    app.getContactHelper().submitContactModification();
-    app.goTo().returnToHomePage();
-    List<ContactData> after = app.getContactHelper().getContactList();
+  }
+
+  @Test
+  public void testContactModification() {
+    List<ContactData> before = app.contact().list();
+    int index = before.size()-1;
+    ContactData contact = new ContactData(before.get(index).getId() , "Arina", "Nekrasova", "Sankt-Peter", "89213336677", "true@mail.ru", null);
+    app.contact().modify(index, contact);
+    app.goTo().homePage();
+    List<ContactData> after = app.contact().list();
     Assert.assertEquals(after.size(), before.size());
 
-    before.remove(before.size()-1);
+    before.remove(index);
     before.add(contact);
     Comparator<? super ContactData> byID = (c1, c2) -> Integer.compare(c1.getId(), c2.getId());
     before.sort(byID);
