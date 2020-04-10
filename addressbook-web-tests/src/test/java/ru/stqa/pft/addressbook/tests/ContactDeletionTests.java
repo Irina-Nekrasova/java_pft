@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ContactDeletionTests extends TestBase {
 
-  @Test
+  @Test (enabled = false)
     public void testContactDeletion () {
       if (! app.getContactHelper().isThereAContact()) {
       app.getContactHelper().createContact(new ContactData("Irina", "Nekras", "Sankt-Peter", "89213336677", "true@mail.ru", "test1"), true);
