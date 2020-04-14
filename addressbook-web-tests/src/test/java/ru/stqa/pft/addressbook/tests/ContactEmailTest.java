@@ -13,7 +13,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactEmailTest extends TestBase {
 
   @BeforeMethod
-  public void insurePreCondition () {
+  public void insurePreCondition() {
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstname("Irina").withLastname("Nekras").withAddress("Sankt-Peter")
@@ -28,12 +28,11 @@ public class ContactEmailTest extends TestBase {
     ContactData contact = app.contact().all().iterator().next();
     ContactData contactInfoFromEditForm = app.contact().infoFromEditForm(contact);
     assertThat(contact.getAllEmails(), equalTo(mergeEmails(contactInfoFromEditForm)));
-
   }
 
   private String mergeEmails(ContactData contact) {
     return Arrays.asList(contact.getEmail(), contact.getEmail2(), contact.getEmail3())
-            .stream().filter((s) -> ! s.equals(""))
+            .stream().filter((s) -> !s.equals(""))
             .collect(Collectors.joining("\n"));
   }
 }

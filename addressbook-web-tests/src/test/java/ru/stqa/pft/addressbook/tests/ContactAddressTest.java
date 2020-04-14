@@ -10,7 +10,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 public class ContactAddressTest extends TestBase {
 
   @BeforeMethod
-  public void insurePreCondition () {
+  public void insurePreCondition() {
     if (app.contact().all().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstname("Irina").withLastname("Nekras").withAddress("Sankt-Peter")

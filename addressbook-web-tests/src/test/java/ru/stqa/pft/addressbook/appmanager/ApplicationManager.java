@@ -40,7 +40,7 @@ public class ApplicationManager {
     sessionHelper.login("admin", "secret");
   }
 
-    public void stop() {
+  public void stop() {
     sessionHelper.logout();
     wd.quit();
   }
