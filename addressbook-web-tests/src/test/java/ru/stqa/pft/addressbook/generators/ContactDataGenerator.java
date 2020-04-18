@@ -14,6 +14,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class ContactDataGenerator {
 
   @Parameter(names = "-c", description = "Contact Count")
@@ -38,7 +39,7 @@ public class ContactDataGenerator {
   }
 
   private void run() throws IOException {
-    List<ContactData> contacts = generateContacts(count);
+      List<ContactData> contacts = generateContacts(count);
     if (format.equals("json")) {
       saveAsJson(contacts, new File(file));
     } else {
@@ -59,7 +60,8 @@ public class ContactDataGenerator {
     for (int i = 0; i < count; i++) {
       contacts.add(new ContactData().withFirstname(String.format("firstname %s", i)).withLastname(String.format("lastname %s", i))
               .withAddress(String.format("address %s", i)).withMobile(String.format("mobile %s%s", i, i))
-              .withEmail(String.format("email@.%s", i)).withGroup(String.format("test %s", i)));
+              .withEmail(String.format("email@.%s", i))
+              .withGroup(String.format("test %s", i)));
     }
     return contacts;
   }
