@@ -70,14 +70,16 @@ public class ContactData {
 
   @Column(name="photo")
   @Type(type = "text")
-  private String photo;
+  @Transient
+  //private String photo;
+  private File photo;
 
   public File getPhoto() {
-    return new File(photo);
+    return photo;
   }
 
   public ContactData withPhoto(File photo) {
-    this.photo = photo.getPath();
+    this.photo = photo;
     return this;
   }
 
