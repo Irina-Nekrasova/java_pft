@@ -21,7 +21,7 @@ public class ContactDeletionTests extends TestBase {
               .inGroup(groups.iterator().next())
               , true);
       app.goTo().homePage();
-    }
+          }
   }
 
   @Test
@@ -32,6 +32,7 @@ public class ContactDeletionTests extends TestBase {
     assertThat(app.contact().count(), equalTo(before.size() - 1));
     Contacts after = app.db().contacts();
     assertThat(after, equalTo(before.without(deletedContact)));
+    verifyContactListInUI();
   }
 
 }
