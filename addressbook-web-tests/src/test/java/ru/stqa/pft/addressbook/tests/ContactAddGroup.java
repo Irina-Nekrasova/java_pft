@@ -7,35 +7,35 @@ import ru.stqa.pft.addressbook.model.Contacts;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-import java.util.Arrays;
-import java.util.stream.Collectors;
-
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 public class ContactAddGroup extends TestBase {
 
+  public GroupData selectedGroup;
 
   @Test
   public void testContactAddGroup() {
     Contacts contacts = app.db().contacts();
     Groups groups = app.db().groups();
-    GroupData selectedGroup = groups.iterator().next();
+    selectedGroup = groups.iterator().next();
     ContactData modifiedContact = contacts.iterator().next();
     Groups allGroupsForContactBefore = modifiedContact.getGroups();
 
-    if (! allGroupsForContactBefore.contains(selectedGroup) ) {
+    if (allGroupsForContactBefore.contains(selectedGroup)) {
+      if (allGroupsForContactBefore.equals(groups)) {
+        app.goTo().groupPage();
+        selectedGroup = new GroupData().withName("test55").withHeader("header55").withFooter("footer55");
+        app.group().create(selectedGroup);
+        app.goTo().mainPage();
+      } else {
+         selectedGroup = groups.stream().filter((g) -> !allGroupsForContactBefore.contains(g)).findFirst().get();
+       }
+
       app.contact().addGroupToContact(modifiedContact, selectedGroup);
       Groups allGroupsForContactAfter = modifiedContact.getGroups();
       assertThat(allGroupsForContactAfter.size(), equalTo(allGroupsForContactBefore.size() + 1));
       Assert.assertTrue(allGroupsForContactAfter.contains(selectedGroup));
-    } else  if (!allGroupsForContactBefore.equals(groups)) {
-      List<Gr> Arrays.asList(contact.getHomePhone(), contact.getMobilePhone(), contact.getWorkPhone())
-              .stream().filter((s) -> !s.equals(""))
-              .map(ContactPhoneTest::cleaned)
-              .collect(Collectors.joining("\n"));
-
-
     }
   }
 }
