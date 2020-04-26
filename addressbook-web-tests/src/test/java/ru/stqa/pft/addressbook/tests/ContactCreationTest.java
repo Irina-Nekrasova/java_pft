@@ -47,7 +47,6 @@ public class ContactCreationTest extends TestBase {
     }
   }
 
-
   @Test(dataProvider = "validContactsFromJson")
   public void testContactCreation(ContactData contact) throws Exception {
     Contacts before = app.db().contacts();
