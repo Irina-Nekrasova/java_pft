@@ -17,7 +17,9 @@ public class ContactPhoneTest extends TestBase {
     if (app.db().contacts().size() == 0) {
       app.contact().create(new ContactData()
               .withFirstname("Irina").withLastname("Nekras").withAddress("Sankt-Peter 567   ")
-              .withMobile("89213336677").withEmail("true@mail.ru").withGroup("test1"), true);
+              .withMobile("89213336677").withEmail("true@mail.ru")
+              //.withGroup("test1")
+              , true);
       app.goTo().homePage();
     }
   }
