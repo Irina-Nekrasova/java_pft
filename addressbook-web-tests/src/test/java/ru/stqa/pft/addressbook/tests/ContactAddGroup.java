@@ -37,7 +37,6 @@ public class ContactAddGroup extends TestBase {
     ContactData modifiedContact = app.db().contacts().iterator().next();
     Groups allGroupsForContactBefore = modifiedContact.getGroups();
 
-
     if (allGroupsForContactBefore.contains(selectedGroup)) {
       if (allGroupsForContactBefore.equals(groups)) {
         app.goTo().groupPage();
