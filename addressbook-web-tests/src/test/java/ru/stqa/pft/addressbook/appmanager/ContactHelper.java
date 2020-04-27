@@ -130,7 +130,7 @@ public class ContactHelper extends HelperBase {
 
   public void addGroupToContact(ContactData contact, GroupData group) {
     selectContactById(contact.getId());
-    selectGroupForContact(group.getName());
+    selectGroupForContact(group.getId());
     submitAddingGroup();
   }
 
@@ -138,8 +138,10 @@ public class ContactHelper extends HelperBase {
     click(By.name("add"));
   }
 
-  private void selectGroupForContact(String groupname) {
-    new Select(wd.findElement(By.name("to_group"))).selectByVisibleText(groupname);
-  }
+  private void selectGroupForContact(int groupId) {
+     new Select(wd.findElement(By.name("to_group"))).selectByValue("" + groupId);
+
+    }
+
 
 }

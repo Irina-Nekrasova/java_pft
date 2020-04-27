@@ -22,18 +22,29 @@ public class ContactAddGroup extends TestBase {
     ContactData modifiedContact = contacts.iterator().next();
     Groups allGroupsForContactBefore = modifiedContact.getGroups();
 
-    if (allGroupsForContactBefore.contains(selectedGroup)) {
-      if (allGroupsForContactBefore.equals(groups)) {
-        app.goTo().groupPage();
-        selectedGroup = new GroupData().withName("test55").withHeader("header55").withFooter("footer55");
-        app.group().create(selectedGroup);
-        app.goTo().mainPage();
-      } else {
-         selectedGroup = groups.stream().filter((g) -> !allGroupsForContactBefore.contains(g)).findFirst().get();
-       }
 
+    if (!allGroupsForContactBefore.contains(selectedGroup)) {
       app.contact().addGroupToContact(modifiedContact, selectedGroup);
-      Groups allGroupsForContactAfter = modifiedContact.getGroups();
+      Groups allGroupsForContactAfter = app.db().contacts().stream().filter((c) -> c.getId() == modifiedContact.getId()).findFirst().get().getGroups();
+      assertThat(allGroupsForContactAfter.size(), equalTo(allGroupsForContactBefore.size() + 1));
+      Assert.assertTrue(allGroupsForContactAfter.contains(selectedGroup));
+
+    } else if (allGroupsForContactBefore.equals(groups)) {
+      app.goTo().groupPage();
+      GroupData newGroup = new GroupData().withName("test55").withHeader("header55").withFooter("footer55");
+      app.group().create(newGroup);
+      app.goTo().mainPage();
+      selectedGroup = new GroupData().withId(app.db().groups().stream().mapToInt((g) -> g.getId()).max().getAsInt())
+              .withName(newGroup.getName()).withFooter(newGroup.getFooter()).withHeader(newGroup.getHeader());
+      app.contact().addGroupToContact(modifiedContact, selectedGroup);
+      Groups allGroupsForContactAfter = app.db().contacts().stream().filter((c) -> c.getId() == modifiedContact.getId()).findFirst().get().getGroups();
+      assertThat(allGroupsForContactAfter.size(), equalTo(allGroupsForContactBefore.size() + 1));
+      Assert.assertTrue(allGroupsForContactAfter.contains(selectedGroup));
+
+    } else {
+      selectedGroup = groups.stream().filter((g) -> !allGroupsForContactBefore.contains(g)).findFirst().get();
+      app.contact().addGroupToContact(modifiedContact, selectedGroup);
+      Groups allGroupsForContactAfter = app.db().contacts().stream().filter((c) -> c.getId() == modifiedContact.getId()).findFirst().get().getGroups();
       assertThat(allGroupsForContactAfter.size(), equalTo(allGroupsForContactBefore.size() + 1));
       Assert.assertTrue(allGroupsForContactAfter.contains(selectedGroup));
     }
