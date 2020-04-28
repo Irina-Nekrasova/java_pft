@@ -9,8 +9,6 @@ import ru.stqa.pft.addressbook.model.Groups;
 
 public class ContactRemoveGroupTests extends TestBase {
 
-  public ContactData modifiedContact;
-
   @BeforeMethod
   public void insurePreCondition() {
     if (app.db().contacts().size() == 0) {
@@ -31,7 +29,7 @@ public class ContactRemoveGroupTests extends TestBase {
   public void testContactRemoveGroup() {
 
     GroupData selectedGroup = app.db().groups().iterator().next();
-    modifiedContact = app.db().contacts().iterator().next();
+    ContactData modifiedContact = app.db().contacts().iterator().next();
 
     if (!selectedGroup.getContacts().contains(modifiedContact)) {
          app.contact().addGroupToContact(modifiedContact, selectedGroup);
