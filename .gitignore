@@ -15,4 +15,4 @@ gradle-app.setting
 .idea/workspace.xml
 *.log
 *.class
-*.class
+

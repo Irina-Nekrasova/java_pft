@@ -10,7 +10,7 @@ import ru.stqa.pft.addressbook.model.Groups;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class ContactAddGroup extends TestBase {
+public class ContactAddGroupTests extends TestBase {
 
   public GroupData selectedGroup;
 
@@ -42,8 +42,7 @@ public class ContactAddGroup extends TestBase {
         app.goTo().groupPage();
         GroupData newGroup = new GroupData().withName("test55").withHeader("header55").withFooter("footer55");
         app.group().create(newGroup);
-        selectedGroup = new GroupData().withId(app.db().groups().stream().mapToInt((g) -> g.getId()).max().getAsInt())
-                .withName(newGroup.getName()).withFooter(newGroup.getFooter()).withHeader(newGroup.getHeader());
+        selectedGroup = newGroup.withId(app.db().groups().stream().mapToInt((g) -> g.getId()).max().getAsInt());
         app.goTo().mainPage();
       } else {
         selectedGroup = groups.stream().filter((g) -> !allGroupsForContactBefore.contains(g)).findFirst().get();

@@ -7,7 +7,7 @@ import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.GroupData;
 import ru.stqa.pft.addressbook.model.Groups;
 
-public class ContactRemoveGroup extends TestBase {
+public class ContactRemoveGroupTests extends TestBase {
 
   public ContactData modifiedContact;
 
@@ -33,22 +33,14 @@ public class ContactRemoveGroup extends TestBase {
     GroupData selectedGroup = app.db().groups().iterator().next();
     modifiedContact = app.db().contacts().iterator().next();
 
-    if (selectedGroup.getContacts().size() == 0) {
-      ContactData newContact = new ContactData()
-              .withFirstname("Irina").withLastname("Nekras").withAddress("Sankt-Peter")
-              .withMobile("89213336677").withEmail("true@mail.ru")
-              .inGroup(selectedGroup);
-      app.contact().create(newContact, true);
-      app.goTo().mainPage();
-      modifiedContact = newContact.withId(app.db().contacts().stream().mapToInt((g) -> g.getId()).max().getAsInt());
-    } else if (!selectedGroup.getContacts().contains(modifiedContact)) {
-      app.contact().addGroupToContact(modifiedContact, selectedGroup);
-      app.goTo().mainPage();
+    if (!selectedGroup.getContacts().contains(modifiedContact)) {
+         app.contact().addGroupToContact(modifiedContact, selectedGroup);
     }
-      app.contact().removeContactFromSelectedGroup(modifiedContact, selectedGroup);
-      Groups allGroupsForContactAfter = app.db().contacts().stream().filter((c) -> c.getId() == modifiedContact.getId()).findFirst().get().getGroups();
-      Assert.assertFalse(allGroupsForContactAfter.contains(selectedGroup));
-    }
+    app.goTo().mainPage();
+    app.contact().removeContactFromSelectedGroup(modifiedContact, selectedGroup);
+    Groups allGroupsForContactAfter = app.db().contacts().stream().filter((c) -> c.getId() == modifiedContact.getId()).findFirst().get().getGroups();
+    Assert.assertFalse(allGroupsForContactAfter.contains(selectedGroup));
   }
+}
 
 
