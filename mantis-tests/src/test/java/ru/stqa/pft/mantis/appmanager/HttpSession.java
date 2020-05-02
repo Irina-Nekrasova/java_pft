@@ -34,7 +34,9 @@ public class HttpSession {
     post.setEntity(new UrlEncodedFormEntity(params));
     CloseableHttpResponse response = httpclient.execute(post);
     String  body = getTextForm(response);
-    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+    return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
+
+    //<a href="/mantisbt-2.24.0/account_page.php">administrator</a>
   }
 
   private String getTextForm(CloseableHttpResponse response) throws IOException {
@@ -49,11 +51,10 @@ public class HttpSession {
     HttpGet get = new HttpGet(app.getProperty("web.baseUrl") + "/index.php");
     CloseableHttpResponse response = httpclient.execute(get);
     String body = getTextForm(response);
-    return body.contains(String.format("<span class=\"italic\">%s</span>", username));
+    return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
   }
 
-
 }
 
 
-}
+
