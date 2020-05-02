@@ -36,7 +36,6 @@ public class HttpSession {
     String  body = getTextForm(response);
     return body.contains(String.format("<span class=\"label hidden-xs label-default arrowed\">%s</span>", username));
 
-    //<a href="/mantisbt-2.24.0/account_page.php">administrator</a>
   }
 
   private String getTextForm(CloseableHttpResponse response) throws IOException {
