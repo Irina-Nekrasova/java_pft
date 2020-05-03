@@ -40,8 +40,14 @@ public class AdminHelper extends HelperBase {
     click(By.xpath("//input[@value='Войти']"));
   }
 
-
-  public void updatePassword(String confirmationLink) {
+  public void updatePassword(String confirmationLink, String password) {
     wd.get(confirmationLink);
+    type(By.name("password"),password);
+    type(By.name("password_confirm"),password);
+    click(By.cssSelector("button[type='submit']"));
+  }
+
+  public void logout() {
+    click(By.xpath("//a[contains(@href, 'logout_page.php')]"));
   }
 }
