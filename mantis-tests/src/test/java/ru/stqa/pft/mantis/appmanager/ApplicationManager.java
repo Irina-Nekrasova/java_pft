@@ -24,6 +24,7 @@ public class ApplicationManager {
   private MailHelper mailHelper;
   private JamesHelper jamesHelper;
   private DbHelper dbHelper;
+  private AdminHelper adminHelper;
 
   public ApplicationManager(String browser)  {
     this.browser = browser;
@@ -73,8 +74,9 @@ public class ApplicationManager {
         wd = new InternetExplorerDriver();
       }
       wd.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+      wd.manage().window().maximize();
       wd.get(properties.getProperty("web.baseUrl"));
-    }
+          }
     return wd;
   }
 
@@ -97,6 +99,13 @@ public class ApplicationManager {
       dbHelper = new DbHelper(this);
     }
     return dbHelper;
+  }
+
+  public AdminHelper admin()  {
+    if (adminHelper == null) {
+      adminHelper = new AdminHelper(this);
+    }
+    return adminHelper;
   }
 
 }
