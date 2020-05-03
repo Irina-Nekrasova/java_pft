@@ -1,7 +1,6 @@
 package ru.stqa.pft.mantis.appmanager;
 
 import org.apache.commons.net.telnet.TelnetClient;
-import org.subethamail.smtp.server.Session;
 import ru.stqa.pft.mantis.model.MailMessage;
 
 import javax.mail.*;
@@ -169,5 +168,4 @@ public class JamesHelper {
       return  null;
     }
   }
-
 }
