@@ -9,11 +9,19 @@ public class AdminHelper extends HelperBase {
     super(app);
   }
 
-  public void manageUser(UserData selectedUser) {
+  public void resetPassword(UserData selectedUser) {
     gotoManagePage();
     gotoManageUsers();
-   // selectUser(selectedUser.getId());
+    selectUser(selectedUser.getId());
+    submitResetPassword();
+  }
 
+  private void submitResetPassword() {
+    click(By.xpath("//input[@value='Сбросить пароль']"));
+  }
+
+  private void selectUser(int id) {
+    click(By.xpath("//a[contains(@href, 'user_id=" + id + "' )]"));
   }
 
   private void gotoManageUsers() {
@@ -33,4 +41,7 @@ public class AdminHelper extends HelperBase {
   }
 
 
+  public void updatePassword(String confirmationLink) {
+    wd.get(confirmationLink);
+  }
 }
