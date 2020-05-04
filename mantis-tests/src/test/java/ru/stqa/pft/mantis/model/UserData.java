@@ -16,22 +16,13 @@ public class UserData {
   @Column(name="username")
   private String username;
 
-  @Override
-  public String toString() {
-    return "UserData{" +
-            "id=" + id +
-            ", username='" + username + '\'' +
-            ", email='" + email + '\'' +
-            '}';
-  }
+  @Expose
+  @Column(name="email")
+  private String email;
 
   public String getEmail() {
     return email;
   }
-
-  @Expose
-  @Column(name="email")
-  private String email;
 
   public int getId() {
     return id;
@@ -39,6 +30,15 @@ public class UserData {
 
   public String getUsername() {
     return username;
+  }
+
+  @Override
+  public String toString() {
+    return "UserData{" +
+            "id=" + id +
+            ", username='" + username + '\'' +
+            ", email='" + email + '\'' +
+            '}';
   }
 
   @Override

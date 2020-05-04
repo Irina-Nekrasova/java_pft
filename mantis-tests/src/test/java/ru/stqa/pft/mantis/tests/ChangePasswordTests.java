@@ -16,17 +16,23 @@ import static org.testng.Assert.assertTrue;
 
 public class ChangePasswordTests extends TestBase {
 
+  public UserData selectedUser;
+
   @BeforeMethod
   public void startMailServer() throws IOException, MessagingException {
     app.mail().start();
   }
 
   @Test
-  public void testChangePasword() throws IOException, MessagingException, InterruptedException {
+  public void testChangePassword() throws IOException, MessagingException, InterruptedException {
     long now = System.currentTimeMillis();
-    UserData selectedUser = app.db().users().iterator().next();
-    String email = selectedUser.getEmail();
+    selectedUser = app.db().users().iterator().next();
     String password = "password" + now;
+    while (selectedUser.getUsername().equals("administrator")) {
+      selectedUser = app.db().users().iterator().next();
+    }
+    String email = selectedUser.getEmail();
+
     app.admin().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     app.admin().resetPassword(selectedUser);
     List<MailMessage> mailMessages = app.mail().waitForMail(1, 60000);

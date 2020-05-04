@@ -25,8 +25,9 @@ public class AdminHelper extends HelperBase {
   }
 
   private void gotoManageUsers() {
-    click(By.linkText("Управление пользователями"));
-  }
+    //click(By.linkText("Управление пользователями"));
+    click(By.xpath("//a[contains(@href, 'manage_user_page.php')]"));
+   }
 
   private void gotoManagePage() {
     click(By.xpath("//a[contains(@href, 'manage_overview_page.php')]"));
