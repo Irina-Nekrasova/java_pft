@@ -29,10 +29,9 @@ public class ChangePasswordTests extends TestBase {
     String password = "password" + now;
     app.admin().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
     app.admin().resetPassword(selectedUser);
-    List<MailMessage> mailMessages = app.mail().waitForMail(2, 10000);
+    List<MailMessage> mailMessages = app.mail().waitForMail(1, 60000);
     String confirmationLink = findConfirmationLink(mailMessages, email);
     app.admin().updatePassword(confirmationLink, password);
-    app.admin().logout();
 
     HttpSession session = app.newSession();
     assertTrue(session.login(selectedUser.getUsername(), password));
