@@ -7,6 +7,7 @@ import ru.lanwen.verbalregex.VerbalExpression;
 import ru.stqa.pft.mantis.appmanager.HttpSession;
 import ru.stqa.pft.mantis.model.MailMessage;
 import ru.stqa.pft.mantis.model.UserData;
+import ru.stqa.pft.mantis.model.Users;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -26,11 +27,10 @@ public class ChangePasswordTests extends TestBase {
   @Test
   public void testChangePassword() throws IOException, MessagingException, InterruptedException {
     long now = System.currentTimeMillis();
-    selectedUser = app.db().users().iterator().next();
     String password = "password" + now;
-    while (selectedUser.getUsername().equals("administrator")) {
-      selectedUser = app.db().users().iterator().next();
-    }
+
+    Users allUsers = app.db().users();
+    selectedUser = chooseNotAdminUser(allUsers);
     String email = selectedUser.getEmail();
 
     app.admin().login(app.getProperty("web.adminLogin"), app.getProperty("web.adminPassword"));
@@ -42,7 +42,15 @@ public class ChangePasswordTests extends TestBase {
     HttpSession session = app.newSession();
     assertTrue(session.login(selectedUser.getUsername(), password));
     assertTrue(session.isLoggedInAs(selectedUser.getUsername()));
+  }
 
+    public UserData chooseNotAdminUser(Users allUsers) {
+    for (UserData user : allUsers) {
+      if (!user.getUsername().equals("administrator")) {
+        return user;
+      }
+    }
+    return null;
   }
 
   private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
