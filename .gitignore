@@ -16,3 +16,4 @@ gradle-app.setting
 *.log
 *.class
 
+*.class
