@@ -33,6 +33,6 @@ public class SoapTests extends TestBase {
   @Test
   public void testStatusIssue() throws RemoteException, ServiceException, MalformedURLException {
     skipIfNotFixed(1);
-    System.out.println("test started");
+    System.out.println("Test Started! ");
   }
 }
