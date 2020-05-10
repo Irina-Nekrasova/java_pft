@@ -9,7 +9,7 @@ import static org.testng.Assert.assertEquals;
 
 public class RestTests extends TestBase{
 
-  @Test(enabled = false)
+  @Test
   public void testCreateIssue() throws IOException {
     Set<Issue> oldIssues = getIssues();
     Issue newIssue = new Issue().withSubject("Test INekrasova").withDescription("New test issue");
@@ -21,7 +21,7 @@ public class RestTests extends TestBase{
 
   @Test
   public void testStatusIssue() throws IOException {
-    skipIfNotFixed(2922);
+    skipIfNotFixed(4);
     System.out.println("Test Started! ");
   }
 

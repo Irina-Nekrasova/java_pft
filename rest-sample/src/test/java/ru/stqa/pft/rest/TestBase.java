@@ -43,7 +43,7 @@ public class TestBase {
   }
 
   public int createIssue(Issue newIssue) throws IOException {
-    String json = getExecutor().execute(Request.Post("https://bugify.stqa.ru/api/issues.json?limit=500")
+    String json = getExecutor().execute(Request.Post("https://bugify.stqa.ru/api/issues.json")
             .bodyForm(new BasicNameValuePair("subject", newIssue.getSubject()),
                     new BasicNameValuePair("description", newIssue.getDescription())))
             .returnContent().asString();
@@ -56,7 +56,7 @@ public class TestBase {
             .returnContent().asString();
 
     JsonElement parsed = new JsonParser().parse(json);
-    String status = parsed.getAsJsonObject().get("state_name").getAsString();
+    String status = parsed.getAsJsonObject().getAsJsonArray("issues").get(0).getAsJsonObject().get("state_name").getAsString();
     return status;
   }
 

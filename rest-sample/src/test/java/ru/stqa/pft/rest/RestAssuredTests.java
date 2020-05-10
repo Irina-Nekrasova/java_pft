@@ -13,7 +13,7 @@ import java.util.Set;
 
 import static org.testng.Assert.assertEquals;
 
-public class RestAssuredTests {
+public class RestAssuredTests  {
 
   @BeforeClass
   public void init() {
@@ -23,7 +23,7 @@ public class RestAssuredTests {
   @Test
   public void testCreateIssue() throws IOException {
     Set<Issue> oldIssues = getIssues();
-    Issue newIssue = new Issue().withSubject("Test new Issue").withDescription("New test issue");
+    Issue newIssue = new Issue().withSubject("Test new Issue").withDescription("New test issue").withState(2);
     int issueId = createIssue(newIssue);
     Set<Issue> newIssues = getIssues();
     oldIssues.add(newIssue.withId(issueId));
@@ -42,7 +42,7 @@ public class RestAssuredTests {
     String json = RestAssured.given()
             .parameter("subject", newIssue.getSubject())
             .parameter("description", newIssue.getDescription())
-            .post("https://bugify.stqa.ru/api/issues.json?limit=500").asString();
+            .post("https://bugify.stqa.ru/api/issues.json").asString();
     JsonElement parsed = new JsonParser().parse(json);
     return parsed.getAsJsonObject().get("issue_id").getAsInt();
   }
