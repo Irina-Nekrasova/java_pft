@@ -33,7 +33,7 @@ public class TestBase {
   }
 
   public Set<Issue> getIssues() throws IOException {
-    String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json?limit=500"))
+    String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json/?limit=500"))
             .returnContent().asString();
 
     JsonElement parsed = new JsonParser().parse(json);
@@ -52,13 +52,12 @@ public class TestBase {
   }
 
   public String getIssueStatus(int issueId) throws IOException {
-    String json = getExecutor().execute(Request.Get("https://bugify.stqa.ru/api/issues.json?limit=500"))
+    String json = getExecutor().execute(Request.Get(String.format("https://bugify.stqa.ru/api/issues/%s.json", issueId)))
             .returnContent().asString();
 
     JsonElement parsed = new JsonParser().parse(json);
-    JsonElement issues = parsed.getAsJsonObject().get("issues");
-    return new Gson().fromJson(issues, new TypeToken<Set<Issue>>() {
-    }.getType());
+    String status = parsed.getAsJsonObject().get("state_name").getAsString();
+    return status;
   }
 
 }

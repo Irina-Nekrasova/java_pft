@@ -9,19 +9,19 @@ import static org.testng.Assert.assertEquals;
 
 public class RestTests extends TestBase{
 
-  @Test
+  @Test(enabled = false)
   public void testCreateIssue() throws IOException {
     Set<Issue> oldIssues = getIssues();
-    Issue newIssue = new Issue().withSubject("Test new Issue").withDescription("New test issue");
+    Issue newIssue = new Issue().withSubject("Test INekrasova").withDescription("New test issue");
     int issueId = createIssue(newIssue);
     Set<Issue> newIssues = getIssues();
     oldIssues.add(newIssue.withId(issueId));
     assertEquals(newIssues, oldIssues);
   }
 
-  @Test (enabled = false)
+  @Test
   public void testStatusIssue() throws IOException {
-    skipIfNotFixed(1);
+    skipIfNotFixed(2922);
     System.out.println("Test Started! ");
   }
 
