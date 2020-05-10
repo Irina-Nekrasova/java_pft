@@ -26,7 +26,7 @@ public class TestBase {
 
   private boolean isIssueOpen(int issueId) throws IOException{
     String status = getIssueStatus(issueId);
-    if(status.equals("resolved")) {
+    if(status.equals("Resolved")) {
       return false;
     }
    return true;
@@ -59,5 +59,4 @@ public class TestBase {
     String status = parsed.getAsJsonObject().getAsJsonArray("issues").get(0).getAsJsonObject().get("state_name").getAsString();
     return status;
   }
-
 }
