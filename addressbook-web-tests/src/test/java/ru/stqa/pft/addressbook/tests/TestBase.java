@@ -1,8 +1,10 @@
 package ru.stqa.pft.addressbook.tests;
 
 import org.openqa.selenium.remote.BrowserType;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
+import org.testng.annotations.Listeners;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
@@ -14,13 +16,15 @@ import java.util.stream.Collectors;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 
+@Listeners (MyTestListener.class)
 public class TestBase {
 
   public static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
   @BeforeSuite
-  public void setUp() throws Exception {
+  public void setUp(ITestContext context) throws Exception {
     app.init();
+    context.setAttribute("app", app);
   }
 
   @AfterSuite
